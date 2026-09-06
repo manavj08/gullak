@@ -1,0 +1,135 @@
+.shared-detail__expense-link {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+.shared-detail__expense-link button {
+  width: 100%;
+}
+
+.shared-detail__type {
+  color: var(--color-ink-muted);
+  font-size: 0.88rem;
+  margin: -8px 0 16px;
+}
+
+.shared-detail__hero {
+  text-align: left;
+}
+
+.shared-detail__label {
+  color: var(--color-ink-muted);
+  font-size: 0.85rem;
+  margin: 0 0 4px;
+}
+
+.shared-detail__amount {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-block);
+  margin: 0 0 16px;
+}
+
+.shared-detail__breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.shared-detail__breakdown div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--color-ink-muted);
+}
+
+.shared-detail__breakdown strong {
+  margin-left: auto;
+  color: var(--color-ink);
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot--mine { background: var(--color-unblock); }
+.dot--others { background: var(--color-block); }
+
+.shared-detail__hint {
+  font-size: 0.78rem;
+  color: var(--color-ink-muted);
+  margin: 4px 0 0;
+}
+
+.shared-detail__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+
+.shared-detail__form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.shared-detail__section-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin: 24px 0 12px;
+}
+
+.member-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.member-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+}
+
+.common-goal-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.common-goal-link__arrow {
+  color: var(--color-block);
+  font-weight: 700;
+}
+
+.member-row__name {
+  font-weight: 600;
+  margin: 0 0 2px;
+}
+
+.member-row__role {
+  font-size: 0.78rem;
+  color: var(--color-ink-muted);
+  margin: 0;
+}
+
+.shared-detail__admin-card {
+  margin-top: 16px;
+}
+
+.shared-detail__admin-card h3 {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+}
+
+.shared-detail__leave {
+  margin-top: 24px;
+}

@@ -1,0 +1,40 @@
+.kind-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.kind-card {
+  cursor: pointer;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.kind-card:hover {
+  box-shadow: 0 4px 20px rgba(30, 42, 40, 0.1);
+  transform: translateY(-1px);
+}
+
+.kind-card h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+}
+
+.kind-card p {
+  margin: 0;
+  color: var(--color-ink-muted);
+  font-size: 0.9rem;
+}
+
+.create-shared__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--color-ink-muted);
+  margin-bottom: 16px;
+}
+
+.create-shared__done {
+  margin-top: 16px;
+}

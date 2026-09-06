@@ -1,0 +1,55 @@
+.split-groups__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.split-groups__settings-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-block);
+  text-decoration: none;
+}
+
+.split-groups__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.split-group-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.split-group-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.split-group-card__name {
+  margin: 0 0 2px;
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+
+.split-group-card__meta {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--color-ink-muted);
+}
+
+.split-group-card__pending {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+  white-space: nowrap;
+}
+
+.split-group-card__pending--active {
+  color: var(--color-warn);
+}

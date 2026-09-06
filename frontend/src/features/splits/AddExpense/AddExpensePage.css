@@ -1,0 +1,42 @@
+.add-expense__participants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.add-expense__participant-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.add-expense__preview {
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-bottom: 16px;
+}
+.add-expense__preview-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 4px 0;
+  font-size: 0.88rem;
+}
+
+.add-expense__custom-shares { margin-bottom: 4px; }
+
+.add-expense__total {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-unblock);
+  margin: 4px 0 16px;
+}
+.add-expense__total--mismatch { color: var(--color-warn); }
+
+.add-expense__submit { width: 100%; }

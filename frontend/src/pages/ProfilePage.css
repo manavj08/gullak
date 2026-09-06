@@ -1,0 +1,11 @@
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.profile-header h1 { font-size: 1.2rem; }
+
+.profile-section { margin-bottom: 14px; }
+.profile-section h2 { font-size: 0.95rem; margin-bottom: 4px; }
+.profile-section .muted { margin-bottom: 12px; }

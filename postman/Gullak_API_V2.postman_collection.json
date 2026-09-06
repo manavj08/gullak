@@ -1,0 +1,1183 @@
+{
+	"info": {
+		"name": "Gullak API V2",
+		"description": "Ready-to-test collection for the Gullak backend. Set base_url and login first \u2014 access/refresh tokens auto-save to collection variables. All amounts are decimal rupee strings, e.g. \"150.50\". V2 adds Shared/Group Accounts, Invites, Notifications, and the Smart Split Suggestion (see the \"Social - ...\" folders below). Run \"Auth > Login\" first, then \"Social - Setup\" requests use a second demo user (demo2) for the invite/accept flow \u2014 register or log them in via a second collection run, or swap credentials manually.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8000/api"
+		},
+		{
+			"key": "access_token",
+			"value": ""
+		},
+		{
+			"key": "refresh_token",
+			"value": ""
+		},
+		{
+			"key": "account_id",
+			"value": ""
+		},
+		{
+			"key": "gullak_account_id",
+			"value": ""
+		},
+		{
+			"key": "goal_id",
+			"value": ""
+		},
+		{
+			"key": "pending_deduction_id",
+			"value": ""
+		},
+		{
+			"key": "shared_account_id",
+			"value": ""
+		},
+		{
+			"key": "invite_id",
+			"value": ""
+		},
+		{
+			"key": "admin_transfer_id",
+			"value": ""
+		},
+		{
+			"key": "expense_id",
+			"value": ""
+		},
+		{
+			"key": "settlement_id",
+			"value": ""
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/auth/register/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"testuser\",\n  \"email\": \"testuser@example.com\",\n  \"phone\": \"+919812340000\",\n  \"password\": \"StrongPass123!\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const data = pm.response.json();",
+									"if (data.access) pm.collectionVariables.set('access_token', data.access);",
+									"if (data.refresh) pm.collectionVariables.set('refresh_token', data.refresh);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/auth/login/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"demo@gullak.app\",\n  \"password\": \"Demo@12345\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Login - Wrong Password (Error Case)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/auth/login/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"demo@gullak.app\",\n  \"password\": \"WrongPassword\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const data = pm.response.json();",
+									"if (data.access) pm.collectionVariables.set('access_token', data.access);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/auth/login/refresh/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refresh\": \"{{refresh_token}}\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Get Current User (Me)",
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/auth/me/"
+					}
+				},
+				{
+					"name": "Set MPIN",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/auth/mpin/set/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mpin\": \"1234\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Verify MPIN",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/auth/mpin/verify/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mpin\": \"1234\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/auth/password/change/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"old_password\": \"Demo@12345\",\n  \"new_password\": \"NewPass123!\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Request Password Reset",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/auth/password/reset/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"demo@gullak.app\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Confirm Password Reset",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/auth/password/reset/confirm/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"uid\": \"PASTE_FROM_EMAIL_OR_CONSOLE_LOG\",\n  \"token\": \"PASTE_FROM_EMAIL_OR_CONSOLE_LOG\",\n  \"new_password\": \"NewStrongPass123!\"\n}"
+						},
+						"description": "The reset link is emailed (real SMTP if configured, otherwise printed to the backend server's console log) -- copy the uid/token out of the /reset-password?uid=...&token=... link and paste them here. Never returned in the Request Password Reset response itself."
+					}
+				},
+				{
+					"name": "Logout (Blacklist Refresh Token)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/auth/logout/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refresh\": \"{{refresh_token}}\"\n}"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Wallet - Accounts",
+			"item": [
+				{
+					"name": "List Accounts (includes auto-created Gullak)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const data = pm.response.json();",
+									"const results = data.results || data;",
+									"const nonGullak = results.find(a => a.category !== 'gullak');",
+									"const gullak = results.find(a => a.category === 'gullak');",
+									"if (nonGullak) pm.collectionVariables.set('account_id', nonGullak.id);",
+									"if (gullak) pm.collectionVariables.set('gullak_account_id', gullak.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/wallet/accounts/"
+					}
+				},
+				{
+					"name": "Create Account (Daily Transaction)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/wallet/accounts/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Test UPI\",\n  \"category\": \"daily_transaction\",\n  \"account_type\": \"UPI\",\n  \"unblock_balance\": \"1000.00\",\n  \"block_balance\": \"0.00\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Create Account - Gullak Rejected (Error Case)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/wallet/accounts/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Fake Gullak\",\n  \"category\": \"gullak\",\n  \"account_type\": \"\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Get Account Detail",
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/wallet/accounts/{{account_id}}/"
+					}
+				},
+				{
+					"name": "Get Gullak Account Detail",
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/wallet/accounts/{{gullak_account_id}}/"
+					}
+				},
+				{
+					"name": "Block Funds (into Gullak)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/wallet/accounts/{{account_id}}/block/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": \"50.00\",\n  \"client_request_id\": \"postman-block-001\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Block Funds - Over Balance (Error Case)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/wallet/accounts/{{account_id}}/block/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": \"999999.00\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Emergency Unblock (from Gullak)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/wallet/accounts/{{account_id}}/emergency-unblock/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": \"20.00\",\n  \"client_request_id\": \"postman-unblock-001\"\n}"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Wallet - Transactions",
+			"item": [
+				{
+					"name": "List Transactions (excludes Gullak legs)",
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/wallet/transactions/"
+					}
+				},
+				{
+					"name": "List Transactions (include Gullak legs)",
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/wallet/transactions/?include_gullak=true"
+					}
+				},
+				{
+					"name": "Create Transaction (Expense)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/wallet/transactions/create/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"account\": {{account_id}},\n  \"type\": \"expense\",\n  \"amount\": \"50.00\",\n  \"category\": \"food\",\n  \"note\": \"Lunch\",\n  \"client_request_id\": \"postman-test-001\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Create Transaction - Insufficient Balance (Error Case)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/wallet/transactions/create/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"account\": {{account_id}},\n  \"type\": \"expense\",\n  \"amount\": \"999999.00\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Create Transaction - Direct on Gullak Rejected (Error Case)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/wallet/transactions/create/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"account\": {{gullak_account_id}},\n  \"type\": \"expense\",\n  \"amount\": \"10.00\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Create Transfer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/wallet/transactions/transfer/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"from_account\": {{account_id}},\n  \"to_account\": {{account_id}},\n  \"amount\": \"10.00\"\n}"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Wallet - Gullak Summary",
+			"item": [
+				{
+					"name": "Get Gullak Total, Allocated, Unallocated & Net Worth",
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/wallet/gullak/"
+					}
+				}
+			]
+		},
+		{
+			"name": "Goals",
+			"item": [
+				{
+					"name": "List Goals",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const data = pm.response.json();",
+									"const results = data.results || data;",
+									"if (results.length) pm.collectionVariables.set('goal_id', results[0].id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/goals/"
+					}
+				},
+				{
+					"name": "Create Goal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/goals/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"New Phone\",\n  \"target_amount\": \"60000.00\",\n  \"deadline\": \"2026-12-31\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Add Funds to Goal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/goals/{{goal_id}}/add-funds/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"add_amount\": \"30.00\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Add Funds - Over Gullak Total (Error Case)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/goals/{{goal_id}}/add-funds/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"add_amount\": \"999999.00\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Delete Goal",
+					"request": {
+						"method": "DELETE",
+						"url": "{{base_url}}/goals/{{goal_id}}/"
+					}
+				}
+			]
+		},
+		{
+			"name": "Goals - Pending Deductions",
+			"item": [
+				{
+					"name": "List Pending Deductions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const data = pm.response.json();",
+									"const results = data.results || data;",
+									"if (results.length) pm.collectionVariables.set('pending_deduction_id', results[0].id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/goals/pending-deductions/"
+					}
+				},
+				{
+					"name": "Resolve Pending Deduction (single goal)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/goals/pending-deductions/{{pending_deduction_id}}/resolve/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"allocations\": [\n    { \"goal_id\": {{goal_id}}, \"amount\": \"15.00\" }\n  ]\n}"
+						}
+					}
+				},
+				{
+					"name": "Resolve Pending Deduction - Amount Mismatch (Error Case)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/goals/pending-deductions/{{pending_deduction_id}}/resolve/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"allocations\": [\n    { \"goal_id\": {{goal_id}}, \"amount\": \"1.00\" }\n  ]\n}"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Streaks",
+			"item": [
+				{
+					"name": "Check In (manual)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/streaks/check-in/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"date\": \"2026-07-23\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Streak Summary",
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/streaks/summary/?date=2026-07-23"
+					}
+				}
+			]
+		},
+		{
+			"name": "Social - Shared & Group Accounts",
+			"item": [
+				{
+					"name": "Create Shared Pair Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/shared-accounts/pair/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Our Fund\"\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const data = pm.response.json();",
+									"if (data.id) pm.collectionVariables.set('shared_account_id', data.id);"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Create Shared Group Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/shared-accounts/group/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Goa Trip\",\n  \"occasion_name\": \"Goa Trip Fund\",\n  \"occasion_date\": \"2026-12-20\",\n  \"reminder_enabled\": true\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const data = pm.response.json();",
+									"if (data.id) pm.collectionVariables.set('shared_account_id', data.id);"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "List My Shared Accounts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/shared-accounts/"
+					}
+				},
+				{
+					"name": "Get Shared Account Detail (aggregate view)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/shared-accounts/{{shared_account_id}}/"
+					}
+				},
+				{
+					"name": "Contribute To Shared Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/shared-accounts/{{shared_account_id}}/contribute/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"from_account\": \"{{account_id}}\",\n  \"amount\": \"50.00\",\n  \"client_request_id\": \"{{$guid}}\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Emergency Unblock Own Share",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/shared-accounts/{{shared_account_id}}/emergency-unblock/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"to_account\": \"{{account_id}}\",\n  \"amount\": \"10.00\",\n  \"client_request_id\": \"{{$guid}}\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Emergency Unblock - Exceeds Own Share (Error Case)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/shared-accounts/{{shared_account_id}}/emergency-unblock/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"to_account\": \"{{account_id}}\",\n  \"amount\": \"999999.00\",\n  \"client_request_id\": \"{{$guid}}\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Send Invite (by username)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/shared-accounts/{{shared_account_id}}/invite/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"invited_username\": \"demo2\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Request Admin Transfer (group only)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/shared-accounts/{{shared_account_id}}/request-admin-transfer/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"target_username\": \"demo2\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Remove Member (admin only, group)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/shared-accounts/{{shared_account_id}}/remove-member/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"demo2\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Leave Shared Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/shared-accounts/{{shared_account_id}}/leave/"
+					}
+				}
+			]
+		},
+		{
+			"name": "Social - Invites & Admin Transfers (received)",
+			"item": [
+				{
+					"name": "My Received Invites",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/invites/"
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const data = pm.response.json();",
+									"const list = data.results ?? data;",
+									"if (list.length) pm.collectionVariables.set('invite_id', list[0].id);"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Accept Invite",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/invites/{{invite_id}}/respond/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accept\": true\n}"
+						}
+					}
+				},
+				{
+					"name": "Decline Invite",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/invites/{{invite_id}}/respond/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accept\": false\n}"
+						}
+					}
+				},
+				{
+					"name": "Accept Admin Transfer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/admin-transfers/{{admin_transfer_id}}/respond/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accept\": true\n}"
+						}
+					}
+				},
+				{
+					"name": "Decline Admin Transfer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/admin-transfers/{{admin_transfer_id}}/respond/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accept\": false\n}"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Social - Notifications",
+			"item": [
+				{
+					"name": "List Notifications (also marks visible as read)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/notifications/"
+					}
+				},
+				{
+					"name": "Unread Notification Count",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/notifications/unread-count/"
+					}
+				}
+			]
+		},
+		{
+			"name": "Social - Smart Split Suggestion",
+			"item": [
+				{
+					"name": "Get Split Suggestion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/split-suggestion/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"new_amount\": \"300.00\"\n}"
+						}
+					}
+				},
+				{
+					"name": "Apply Split Suggestion (with override)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/social/split-suggestion/apply/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"allocations\": [\n    {\n      \"goal_id\": \"{{goal_id}}\",\n      \"amount\": \"150.00\"\n    }\n  ]\n}"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Social - Username Lookup",
+			"item": [
+				{
+					"name": "Check Username Exists",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/auth/username-lookup/?username=demo2"
+					}
+				}
+			]
+		},
+		{
+			"name": "Expenses - Group Split & Settlements",
+			"item": [
+				{
+					"name": "Log Group Expense (Equal Split)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/expenses/groups/{{shared_account_id}}/expenses/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"paid_by\": 1,\n  \"description\": \"Dinner at Goa\",\n  \"amount\": \"300.00\",\n  \"category\": \"food\",\n  \"split_type\": \"equal\",\n  \"expense_date\": \"2026-08-01\",\n  \"note\": \"Beach shack dinner\",\n  \"participant_ids\": [\n    1,\n    2,\n    3\n  ]\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const data = pm.response.json();",
+									"if (data.id) pm.collectionVariables.set('expense_id', data.id);"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Log Group Expense (Exact Split)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/expenses/groups/{{shared_account_id}}/expenses/",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"paid_by\": 1,\n  \"description\": \"Cab fare\",\n  \"amount\": \"200.00\",\n  \"category\": \"travel\",\n  \"split_type\": \"exact\",\n  \"expense_date\": \"2026-08-01\",\n  \"note\": \"\",\n  \"participant_ids\": [\n    1,\n    2\n  ],\n  \"exact_shares\": {\n    \"1\": \"50.00\",\n    \"2\": \"150.00\"\n  }\n}"
+						}
+					}
+				},
+				{
+					"name": "List Group Expenses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/expenses/groups/{{shared_account_id}}/expenses/"
+					}
+				},
+				{
+					"name": "Delete Expense",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/expenses/groups/{{shared_account_id}}/expenses/{{expense_id}}/"
+					}
+				},
+				{
+					"name": "Generate Settlements",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/expenses/groups/{{shared_account_id}}/settlements/generate/"
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const data = pm.response.json();",
+									"if (Array.isArray(data) && data.length && data[0].id) pm.collectionVariables.set('settlement_id', data[0].id);"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "List Settlements",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/expenses/groups/{{shared_account_id}}/settlements/"
+					}
+				},
+				{
+					"name": "Mark Settlement Paid",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{base_url}}/expenses/groups/{{shared_account_id}}/settlements/{{settlement_id}}/mark-paid/"
+					}
+				}
+			]
+		}
+	]
+}

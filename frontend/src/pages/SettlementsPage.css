@@ -1,0 +1,93 @@
+.settlements__head {
+  margin-bottom: 12px;
+}
+
+.settlements__back-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-block);
+  text-decoration: none;
+}
+
+.settlements__generate-btn {
+  width: 100%;
+}
+
+.settlements__hint {
+  font-size: 0.8rem;
+  color: var(--color-ink-muted);
+  margin: 8px 0 20px;
+}
+
+.settlements__section-title {
+  font-size: 1.05rem;
+  margin: 20px 0 12px;
+}
+
+.settlements__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.settlements__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.settlements__row--paid {
+  opacity: 0.7;
+}
+
+.settlements__desc {
+  margin: 0 0 4px;
+  font-size: 0.92rem;
+}
+
+.settlements__amount {
+  font-weight: 700;
+  font-family: var(--font-display);
+  color: var(--color-warn);
+  margin: 0;
+}
+
+.settlements__amount--paid {
+  color: var(--color-unblock);
+}
+
+.settlements__row-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.settlements__pay-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background: var(--color-unblock);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.settlements__no-upi {
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+  margin: 0;
+  max-width: 140px;
+  text-align: right;
+}
+
+.settlements__paid-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-unblock);
+  background: var(--color-unblock-bg);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+}

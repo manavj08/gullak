@@ -1,0 +1,12 @@
+@import './styles/tokens.css';
+
+/* Used on pages whose title is dynamic/contextual (e.g. account name, selected shared-
+   account type) — PageHeader already renders the static route title as <h1>, so these
+   pages show a secondary line instead of a second <h1>. */
+.page-subtitle {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin: 0 0 16px;
+}

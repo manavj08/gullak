@@ -1,0 +1,63 @@
+.net-worth-chart__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.net-worth-chart__title {
+  margin: 0 0 2px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.net-worth-chart__current {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.net-worth-chart__trend {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.net-worth-chart__trend--up { color: var(--color-unblock); }
+.net-worth-chart__trend--down { color: var(--color-warn); }
+
+.net-worth-chart__range {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.net-worth-chart__range-btn {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+}
+.net-worth-chart__range-btn.active {
+  background: var(--color-block-bg);
+  border-color: var(--color-block);
+  color: var(--color-block);
+}
+
+.net-worth-chart__empty {
+  color: var(--color-ink-muted);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 24px 0;
+  margin: 0;
+}

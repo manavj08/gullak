@@ -1,0 +1,74 @@
+.account-detail__head { margin-bottom: 16px; }
+.account-detail__cat {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-muted);
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+.account-detail__name { font-size: 1.4rem; font-weight: 700; font-family: var(--font-display); margin: 0; }
+
+.gullak-detail-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.gullak-detail-title__text { font-size: 1.4rem; font-weight: 700; font-family: var(--font-display); }
+
+.gullak-detail-hero {
+  background: linear-gradient(135deg, var(--color-block) 0%, #204b6e 100%);
+  color: #fff;
+  border: none;
+  margin-bottom: 16px;
+}
+.gullak-detail-hero__label {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.85;
+  font-weight: 500;
+}
+.gullak-detail-hero__amount {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 4px 0 0;
+  letter-spacing: -0.02em;
+}
+
+.gullak-detail-footer-note {
+  text-align: center;
+  color: var(--color-ink-muted);
+  font-size: 0.85rem;
+  margin: 24px 0 0;
+}
+.gullak-detail-footer-note a { color: var(--color-block); font-weight: 600; text-decoration: none; }
+
+.balance-card { text-align: left; }
+.balance-card--unblock { border-color: var(--color-unblock); background: var(--color-unblock-bg); }
+.balance-card--block { border-color: var(--color-block); background: var(--color-block-bg); }
+.balance-card__label { margin: 0; font-size: 0.78rem; font-weight: 600; color: var(--color-ink-muted); }
+.balance-card__amount {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 4px 0 0;
+}
+
+.action-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.action-row .ui-btn { flex: 1; min-width: 140px; }
+
+.action-panel { margin-top: 16px; }
+.action-panel h3 { font-size: 1.05rem; margin-bottom: 6px; }
+.action-panel--warn { border-color: var(--color-warn); background: var(--color-warn-bg); }
+.action-panel--warn p { font-size: 0.88rem; color: var(--color-ink); }
+
+.archive-link {
+  display: block;
+  margin: 28px auto 0;
+  background: none;
+  border: none;
+  color: var(--color-ink-muted);
+  font-size: 0.82rem;
+  text-decoration: underline;
+}

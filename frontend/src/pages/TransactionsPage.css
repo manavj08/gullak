@@ -1,0 +1,39 @@
+.filter-row {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 10px;
+}
+.transactions-page__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+.filter-chip {
+  flex-shrink: 0;
+  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+  text-transform: capitalize;
+}
+.filter-chip.active {
+  background: var(--color-block);
+  border-color: var(--color-block);
+  color: #fff;
+}
+
+.txn-type-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.txn-type-badge--income, .txn-type-badge--borrow { color: var(--color-unblock); }
+.txn-type-badge--expense, .txn-type-badge--lend { color: var(--color-warn); }
+.txn-type-badge--transfer { color: var(--color-block); }

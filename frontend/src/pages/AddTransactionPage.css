@@ -1,0 +1,36 @@
+.type-toggle {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.type-chip {
+  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+}
+.type-chip.active.type-chip--negative { background: var(--color-warn-bg); border-color: var(--color-warn); color: var(--color-warn); }
+.type-chip.active.type-chip--positive { background: var(--color-unblock-bg); border-color: var(--color-unblock); color: var(--color-unblock); }
+.type-chip.active.type-chip--neutral { background: var(--color-block-bg); border-color: var(--color-block); color: var(--color-block); }
+
+.account-balance-hint {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-size: 0.78rem;
+  color: var(--color-ink-muted);
+  margin: -8px 0 16px;
+}
+.account-balance-hint strong { color: var(--color-ink); font-family: var(--font-display); }
+
+.shortfall-alert__title {
+  font-weight: 700;
+  margin: 0 0 4px;
+}

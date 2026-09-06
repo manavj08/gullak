@@ -1,0 +1,110 @@
+.settlement-page__back-link {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-block);
+  text-decoration: none;
+  margin-bottom: 14px;
+}
+
+.settlement-page__recalc-btn { width: 100%; margin-bottom: 6px; }
+
+.settlement-page__section-title {
+  font-size: 1rem;
+  margin: 20px 0 10px;
+}
+
+.settlement-page__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.settlement-card__pair {
+  margin: 0 0 4px;
+  font-size: 0.95rem;
+}
+
+.settlement-card__amount {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-warn);
+}
+
+.settlement-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.settlement-card__pay-error {
+  font-size: 0.8rem;
+  color: var(--color-warn);
+  margin: 8px 0 0;
+}
+
+.settlement-card__qr {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0 4px;
+}
+
+.settlement-card__no-upi {
+  font-size: 0.85rem;
+  color: var(--color-ink-muted);
+  text-align: center;
+}
+
+.settlement-card__calc {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border);
+}
+.settlement-card__calc-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.84rem;
+  margin: 0 0 6px;
+}
+.settlement-card__calc-note {
+  font-size: 0.78rem;
+  color: var(--color-ink-muted);
+  margin: 4px 0 0;
+}
+
+.settlement-card--paid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  opacity: 0.85;
+}
+.settlement-card--paid .settlement-card__amount {
+  margin: 0;
+  color: var(--color-unblock);
+  font-size: 1.1rem;
+}
+.settlement-card__paid-badge {
+  background: var(--color-unblock-bg);
+  color: var(--color-unblock);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.split-qr__loading {
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-sm);
+}
+.split-qr__image {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+.split-qr__error {
+  font-size: 0.85rem;
+  color: var(--color-warn);
+}

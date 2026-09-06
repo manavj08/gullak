@@ -1,0 +1,46 @@
+.shared-head {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.shared-sub {
+  color: var(--color-ink-muted);
+  font-size: 0.9rem;
+  margin: 0 0 20px;
+}
+
+.shared-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.shared-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.shared-card__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.shared-card__name {
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.shared-card__type {
+  font-size: 0.82rem;
+  color: var(--color-ink-muted);
+  margin: 0;
+}
+
+.shared-card__amount {
+  font-weight: 700;
+  color: var(--color-block);
+  font-family: var(--font-display);
+}

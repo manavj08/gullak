@@ -1,0 +1,51 @@
+.create-group__add-member {
+  display: flex;
+  gap: 8px;
+}
+.create-group__add-member .ui-input { flex: 1; }
+
+.create-group__members {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.create-group__member-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.create-group__member-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.create-group__member-remove {
+  background: none;
+  border: none;
+  color: var(--color-ink-muted);
+  font-size: 0.95rem;
+  padding: 4px 6px;
+  border-radius: var(--radius-sm);
+}
+.create-group__member-remove:hover {
+  background: var(--color-surface-alt);
+  color: var(--color-warn);
+}
+
+.create-group__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+.create-group__actions a { flex: 0 0 auto; }
